@@ -51,7 +51,7 @@ router.post(
   })
 );
 
-// get all withdraws --- admin
+// get all withdraws --- admnin
 
 router.get(
   "/get-all-withdraw-request",
@@ -122,6 +122,7 @@ router.put(
 );
 
 module.exports = router;
+
 
 
 /*

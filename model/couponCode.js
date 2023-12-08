@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const couponCodeSchema = new mongoose.Schema({
+const coupounCodeSchema = new mongoose.Schema({
     name:{
         type: String,
-        required:[true,"Please enter your coupon code name!"],
+        required:[true,"Please enter your coupoun code name!"],
         unique: true,
     },
     value:{
@@ -29,4 +29,4 @@ const couponCodeSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("CouponCode", couponCodeSchema);
+module.exports = mongoose.model("CoupounCode", coupounCodeSchema);

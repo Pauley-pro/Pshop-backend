@@ -12,7 +12,6 @@ router.post(
   "/create-order",
   catchAsyncErrors(async (req, res, next) => {
     try {
-      //being a multivendor ecommerce app, products from different sellers could be ordered by a buyer. The below handles this
       const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
 
       //   group cart items by shopId

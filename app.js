@@ -4,16 +4,14 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const path = require("path");
 
 app.use(cors({
-  origin: "https://pshop-4i4f.onrender.com",
+  origin: ['https://eshop-tutorial-pyri.vercel.app',],
   credentials: true
 }));
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/", express.static(path.join(__dirname,"./uploads")));
 app.use("/test", (req, res) => {
   res.send("Hello world!");
 });
@@ -32,7 +30,7 @@ const user = require("./controller/user");
 const shop = require("./controller/shop");
 const product = require("./controller/product");
 const event = require("./controller/event");
-const coupon = require("./controller/couponCode");
+const coupon = require("./controller/coupounCode");
 const payment = require("./controller/payment");
 const order = require("./controller/order");
 const conversation = require("./controller/conversation");

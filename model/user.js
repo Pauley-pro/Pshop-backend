@@ -47,8 +47,14 @@ const userSchema = new mongoose.Schema({
     default: "user",
   },
   avatar:{
-    type: String,
-    required: true,
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
  },
  createdAt:{
   type: Date,
@@ -64,6 +70,7 @@ userSchema.pre("save", async function (next){
   if(!this.isModified("password")){
     next();
   }
+
   this.password = await bcrypt.hash(this.password, 10);
 });
 
