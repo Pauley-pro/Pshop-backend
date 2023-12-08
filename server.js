@@ -37,7 +37,7 @@ mongoose.connection.on("disconnected", () => {
 
 //middlewares.......these are really important because it is able to reach our request before sending anything to the user
 app.use(cors({
-  origin: ['http://localhost:3000', "https://pshop.onrender.com"],
+  origin: "https://pshop-4i4f.onrender.com/",
   credentials: true
 }));
 app.use(cookieParser())
