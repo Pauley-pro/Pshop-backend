@@ -35,7 +35,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `localhost:3000/user/activation/${activationToken}`;
+    const activationUrl = `https://pshop-4i4f.onrender.com/user/activation/${activationToken}`;
 
     try {
       const currentYear = new Date().getFullYear();
@@ -43,72 +43,32 @@ router.post("/create-user", async (req, res, next) => {
         email: user.email,
         subject: "Activate your account",
         message:
-          `<body style="
-        color: white;
-        text-align: center;
-        background-color: #1800f4;
-        margin: 0;
-        padding: 0;"
-    >
-        <div style="
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #1800f4;"
-        >
-            <img src="https://res.cloudinary.com/polad/image/upload/v1708701465/logo_r6zbad.png" alt="Logo" style="width: 100px; height: 50px;" />
-
-            <p style="text-align: left; color: white;">Hello ${user.name},</p>
-            <h4 style="color: white;">WELCOME TO PSHOP</h4>
-
-            <p style="color: white;">We just need to validate your email address to activate your Pshop Account. Simply click the following button</p>
-            <br />
-            <button style="
-              background-color: #39cdff;
-              color: white;
-              border: none;
-              padding: 10px 20px;
-              border-radius: 5px;
-              text-decoration: none;
-              cursor: pointer;
-              display: inline-block;"
-            >
-              <a href="${activationUrl}" style="
-                text-decoration: none;
-                color: white;
-                display: inline-block;
-                width: 100%;
-                height: 100%;
-                padding: 10px 20px;
-                border-radius: 5px;
-                box-sizing: border-box;
-                cursor: pointer;"
-              >
-                Activate My Account
-              </a>
-            </button>
-
-            <br />
-            <br />
-            <p style="color: white;">Welcome aboard</p>
-            <h5 style="color: white;">Pshop</h5>
-            <br />
-            <hr />
-            <footer style="
-                color: white;
-                padding: 10px;
-                margin-top: 20px;
-                border-radius: 0 0 10px 10px;"
-            >
-                <p style="color: white;">
-                    This email was sent to you by Pshop. <br />
-                    Please contact us at <span style="color: #fff;">admin@pshop.com.ng</span>.
-                </p>
-                <p style="color: white;">&copy; ${currentYear} Pshop</p>
-            </footer>
-        </div>
-    </body>`,
+          `
+          <html>
+            <body style="color: white; text-align: center; background-color: #1800f4; margin: 0; padding: 0;">
+              <div style="max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #1800f4;">
+                <img src="https://res.cloudinary.com/polad/image/upload/v1708701465/logo_r6zbad.png" alt="Logo" style="width: 100px; height: 50px;" />
+                <p style="text-align: left; color: white;">Hello ${user.name},</p>
+                <h4 style="color: white;">WELCOME TO PSHOP</h4>
+                <p style="color: white;">We just need to validate your email address to activate your Pshop Account. Simply click the following button</p>
+                <br />
+                <a href="${activationUrl}" style="text-decoration: none;">
+                  <button style="background-color: #39cdff; color: white; border: none; padding: 10px 20px; border-radius: 5px; text-decoration: none; cursor: pointer;">Activate My Account</button>
+                </a>
+                <br />
+                <br />
+                <p style="color: white;">Welcome aboard</p>
+                <h5 style="color: white;">Pshop</h5>
+                <br />
+                <hr />
+                <footer style="color: white; padding: 10px; margin-top: 20px; border-radius: 0 0 10px 10px;">
+                  <p style="color: white;">This email was sent to you by Pshop. <br /> Please contact us at <span style="color: #fff;">admin@pshop.com.ng</span>.</p>
+                  <p style="color: white;">&copy; ${currentYear} Pshop</p>
+                </footer>
+              </div>
+            </body>
+          </html>
+          `,
       });
       res.status(201).json({
         success: true,
