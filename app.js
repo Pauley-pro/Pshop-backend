@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://pshop-4i4f.onrender.com'],
+  origin: "https://pshop-4i4f.onrender.com",
+  // origin: "http://localhost:3000",
   credentials: true
 }));
 

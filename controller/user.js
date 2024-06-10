@@ -35,15 +35,15 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://pshop-4i4f.onrender.com/activation/${activationToken}`;
+    const activationUrl = `localhost:3000/user/activation/${activationToken}`;
 
     try {
       const currentYear = new Date().getFullYear();
       await sendMail({
         email: user.email,
         subject: "Activate your account",
-        message: 
-        `<body style="
+        message:
+          `<body style="
         color: white;
         text-align: center;
         background-color: #1800f4;
@@ -64,20 +64,31 @@ router.post("/create-user", async (req, res, next) => {
 
             <p style="color: white;">We just need to validate your email address to activate your Pshop Account. Simply click the following button</p>
             <br />
-            <a href="${activationUrl}">
-                <button style="
-                    background-color: #39cdff;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    text-decoration: none;
-                    cursor: pointer;
-                    display: inline-block;"
-                >
-                    Activate My Account
-                </button>
-            </a>
+            <button style="
+              background-color: #39cdff;
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              border-radius: 5px;
+              text-decoration: none;
+              cursor: pointer;
+              display: inline-block;"
+            >
+              <a href="${activationUrl}" style="
+                text-decoration: none;
+                color: white;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                padding: 10px 20px;
+                border-radius: 5px;
+                box-sizing: border-box;
+                cursor: pointer;"
+              >
+                Activate My Account
+              </a>
+            </button>
+
             <br />
             <br />
             <p style="color: white;">Welcome aboard</p>
