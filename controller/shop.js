@@ -39,71 +39,13 @@ router.post("/create-shop", catchAsyncErrors(async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationUrl = `https://pshop-4i4f.onrender.com/seller/activation/${activationToken}`;
+    const activationUrl = `https://eshop-tutorial-pyri.vercel.app/seller/activation/${activationToken}`;
 
     try {
-      const currentYear = new Date().getFullYear();
       await sendMail({
         email: seller.email,
         subject: "Activate your Shop",
-        message:
-          `
-        <body style="
-          color: white;
-          text-align: center;
-          background-color: #1800f4;
-          margin: 0;
-          padding: 0;"
-        >
-          <div style="
-              max-width: 600px;
-              margin: 0 auto;
-              padding: 20px;
-              border-radius: 10px;
-              background-color: #1800f4;"
-          >
-            <img src="https://res.cloudinary.com/polad/image/upload/v1708701465/logo_r6zbad.png" alt="Logo" style="width: 100px; height: 50px;" />
-
-            <p style="text-align: left; color: white;">Hello ${seller.name},</p>
-            <h4 style="color: white;">WELCOME TO PSHOP</h4>
-
-            <p style="color: white;">We just need to validate your email address to activate your Pshop Account. Simply click the following button</p>
-            <br />
-            <a href="${activationUrl}">
-                <button style="
-                    background-color: #39cdff;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    text-decoration: none;
-                    cursor: pointer;
-                    display: inline-block;"
-                >
-                    Activate My Shop
-                </button>
-            </a>
-            <br />
-            <br />
-            <p style="color: white;">Welcome aboard</p>
-            <h5 style="color: white;">Pshop</h5>
-            <br />
-            <hr />
-            <footer style="
-              color: white;
-              padding: 10px;
-              margin-top: 20px;
-              border-radius: 0 0 10px 10px;"
-            >
-              <p style="color: white;">
-                This email was sent to you by Pshop. <br />
-                Please contact us at <span style="color: #fff;">admin@pshop.com.ng</span>.
-              </p>
-              <p style="color: white;">&copy; ${currentYear} Pshop</p>
-            </footer>
-            </div>
-          </body>
-        `,
+        message: `Hello ${seller.name}, please click on the link to activate your shop: ${activationUrl}`,
       });
       res.status(201).json({
         success: true,
@@ -264,26 +206,26 @@ router.put(
     try {
       let existsSeller = await Shop.findById(req.seller._id);
 
-      const imageId = existsSeller.avatar.public_id;
+        const imageId = existsSeller.avatar.public_id;
 
-      await cloudinary.v2.uploader.destroy(imageId);
+        await cloudinary.v2.uploader.destroy(imageId);
 
-      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        folder: "avatars",
-        width: 150,
-      });
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+          folder: "avatars",
+          width: 150,
+        });
 
-      existsSeller.avatar = {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,
-      };
+        existsSeller.avatar = {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        };
 
-
+  
       await existsSeller.save();
 
       res.status(200).json({
         success: true,
-        seller: existsSeller,
+        seller:existsSeller,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));

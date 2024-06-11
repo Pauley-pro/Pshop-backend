@@ -35,9 +35,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://pshop-4i4f.onrender.com/activation/${activationToken}`;
-
-    // const activationUrl = `https://pshop-4i4f.onrender.com/user/activation/${activationToken}`;
+    const activationUrl = `http://localhost:3000/activation/${activationToken}`;
 
     try {
       const currentYear = new Date().getFullYear();
@@ -45,8 +43,7 @@ router.post("/create-user", async (req, res, next) => {
         email: user.email,
         subject: "Activate your account",
         message:
-          `
-          <html>
+        `
             <body style="color: white; text-align: center; background-color: #1800f4; margin: 0; padding: 0;">
               <div style="max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #1800f4;">
                 <img src="https://res.cloudinary.com/polad/image/upload/v1708701465/logo_r6zbad.png" alt="Logo" style="width: 100px; height: 50px;" />
@@ -54,7 +51,7 @@ router.post("/create-user", async (req, res, next) => {
                 <h4 style="color: white;">WELCOME TO PSHOP</h4>
                 <p style="color: white;">We just need to validate your email address to activate your Pshop Account. Simply click the following button</p>
                 <br />
-                <a href="${activationUrl}" style="text-decoration: none;">
+                <a href="${activationUrl}" style="text-decoration: none; cursor: pointer">
                   <button style="background-color: #39cdff; color: white; border: none; padding: 10px 20px; border-radius: 5px; text-decoration: none; cursor: pointer;">Activate My Account</button>
                 </a>
                 <br />
@@ -69,13 +66,12 @@ router.post("/create-user", async (req, res, next) => {
                 </footer>
               </div>
             </body>
-          </html>
           `,
+        // message: `Hello ${user.name}, please click on the link to activate your account: ${activationUrl}`,
       });
       res.status(201).json({
         success: true,
-        message:
-          `please check your email:- ${user.email} to activate your account!`
+        message: `please check your email:- ${user.email} to activate your account!`,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
