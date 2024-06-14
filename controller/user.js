@@ -35,7 +35,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `pshop-4i4f.onrender.com/activation/${activationToken}`;
+    const activationUrl = `https://pshop-4i4f.onrender.com/activation/${activationToken}`;
 
     try {
       const currentYear = new Date().getFullYear();
