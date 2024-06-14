@@ -11,11 +11,14 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
 // create user
 router.post("/create-user", async (req, res, next) => {
+  console.log("Create user request received");
   try {
     const { name, email, password, avatar } = req.body;
+    console.log("Request body:", req.body);
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
+      console.log("User already exists");
       return next(new ErrorHandler("User already exists", 400));
     }
 
@@ -36,6 +39,7 @@ router.post("/create-user", async (req, res, next) => {
     const activationToken = createActivationToken(user);
 
     const activationUrl = `https://pshop-4i4f.onrender.com/activation/${activationToken}`;
+    console.log("Activation URL:", activationUrl);
 
     try {
       const currentYear = new Date().getFullYear();
@@ -74,9 +78,11 @@ router.post("/create-user", async (req, res, next) => {
         message: `please check your email:- ${user.email} to activate your account!`,
       });
     } catch (error) {
+      console.error("Error sending email:", error);
       return next(new ErrorHandler(error.message, 500));
     }
   } catch (error) {
+    console.error("Error creating user:", error);
     return next(new ErrorHandler(error.message, 400));
   }
 });
@@ -92,8 +98,10 @@ const createActivationToken = (user) => {
 router.post(
   "/activation",
   catchAsyncErrors(async (req, res, next) => {
+    console.log("Activation request received");
     try {
       const { activation_token } = req.body;
+      console.log("Activation token:", activation_token);
 
       const newUser = jwt.verify(
         activation_token,
@@ -101,6 +109,7 @@ router.post(
       );
 
       if (!newUser) {
+        console.log("Invalid token");
         return next(new ErrorHandler("Invalid token", 400));
       }
       const { name, email, password, avatar } = newUser;
@@ -108,6 +117,7 @@ router.post(
       let user = await User.findOne({ email });
 
       if (user) {
+        console.log("User already exists");
         return next(new ErrorHandler("User already exists", 400));
       }
       user = await User.create({
@@ -119,6 +129,7 @@ router.post(
 
       sendToken(user, 201, res);
     } catch (error) {
+      console.error("Error activating user:", error);
       return next(new ErrorHandler(error.message, 500));
     }
   })
