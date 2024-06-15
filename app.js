@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 app.use(cors({
-  origin: ['https://pshop-4i4f.onrender.com'],
+  origin: ['https://pshop-drab.vercel.app'],
   credentials: true
 }));
 

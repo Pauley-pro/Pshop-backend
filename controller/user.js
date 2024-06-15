@@ -38,7 +38,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://pshop-4i4f.onrender.com/activation/${activationToken}`;
+    const activationUrl = `https://pshop-drab.vercel.app/activation/${activationToken}`;
     console.log("Activation URL:", activationUrl);
 
     try {

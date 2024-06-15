@@ -39,7 +39,7 @@ router.post("/create-shop", catchAsyncErrors(async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationUrl = `https://pshop-4i4f.onrender.com/seller/activation/${activationToken}`;
+    const activationUrl = `https://pshop-drab.vercel.app/seller/activation/${activationToken}`;
 
     try {
       await sendMail({
